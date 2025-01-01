@@ -7,5 +7,5 @@ from numbers import Number
 
 class Abstraction(ABC):           
     @abstractmethod 
-    def count_the_answer(self) -> Number:
+    def _count_the_answer(self) -> Number:
         pass

@@ -1,4 +1,5 @@
 import sys
 sys.path.append('.')
 
-from .mediana import Mediana
+from .median import Median
+from .avg import Avg
