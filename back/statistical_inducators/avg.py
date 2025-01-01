@@ -8,7 +8,7 @@ from Errors import LengthError
 
 
 class Avg(Collection):    
-    @lru_cache(None)
+    @lru_cache
     def _count_the_answer(self) -> Number | None:
         if not self._lst:
             raise LengthError('Длина списка должна быть больше нуля!')
