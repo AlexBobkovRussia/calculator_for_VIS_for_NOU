@@ -1,1 +1,1 @@
-from statistical_inducators import *
+from .statistical_inducators import *
