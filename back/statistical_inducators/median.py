@@ -6,18 +6,27 @@ from Errors import LengthError
 
 class Median(Collection):
     @lru_cache
+    def make_course_of_the_decision(self):
+        output = f'{', '.join(map(str, self._lst))} = {', '.join(map(str, sorted(self._lst)))} = '
+        if len(self._lst) % 2 == 0:
+            output += f'({self._lst[len(self._lst) // 2 - 1]} + {self._lst[len(self._lst) // 2]}) / 2'
+        output += f'\n'
+        return output
+
+    @lru_cache
     def _count_the_answer(self) -> Number | None:
         if not self._lst:
             raise LengthError('Длина списка должна быть больше нуля!')
         self._lst.sort()
         if len(self._lst) % 2 != 0:
-            return ('Медиана', self._lst[len(self._lst) // 2]) if self.add_name else self._lst[len(self._lst) // 2]
+            answer = self._lst[len(self._lst) // 2]
         else:
-            return (('Медиана', (self._lst[len(self._lst) // 2 - 1] + self._lst[len(self._lst) // 2]) / 2)
-                if self.add_name else (self._lst[len(self._lst) // 2 - 1] + self._lst[len(self._lst) // 2]) / 2)
+            answer = (self._lst[len(self._lst) // 2 - 1] + self._lst[len(self._lst) // 2]) / 2
+        return self.returning('Медиана', answer)
 
 
 if __name__ == '__main__':
+    print(Median([1, 2, 3], add_name=True, course_of_the_decision=True).answer)
     assert Median([1, 2, 3]).answer == 2
     assert Median([1, 2, 3, 4]).answer == 2.5
     assert Median([1, 2, 3, 4, 5]).answer == 3

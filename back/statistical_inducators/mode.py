@@ -9,11 +9,10 @@ sys.path.append('.')
 
 
 class Mode(Collection):
-    def __init__(self, lst: list[Number, ...], add_name=False):
-        super().__init__(lst, add_name)
-
-    def __call__(self, element: Number):
-        super().__call__(element)
+    @lru_cache
+    def make_course_of_the_decision(self) -> str:
+        output = f'{', '.join(map(str, self._lst))} = '
+        return output
 
     @lru_cache
     def _count_the_answer(self) -> Number | None:
@@ -25,7 +24,8 @@ class Mode(Collection):
             raise ModeError('Моды нет!')
         counter = dict(list(filter(lambda x: x[1] == max_elem, counter.items())))
         counter = dict(sorted(counter.items(), key=lambda x: x[0]))
-        return ('Мода', list(counter.keys())) if self.add_name else list(counter.keys())
+        self.counted_answer = list(counter.keys())
+        return self.returning('Мода', self.counted_answer)
 
 
 if __name__ == '__main__':

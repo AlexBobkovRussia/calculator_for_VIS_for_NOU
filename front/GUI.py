@@ -1,14 +1,15 @@
 from customtkinter import *
 from back import *
-from Errors import LengthError, ModeError
+from Errors import LengthError, ModeError, SelectError
 from numbers import Number
 
 
 class Answers:
-    def __init__(self, what_count: list[str, ...], data, add_name=False):
+    def __init__(self, what_count: list[str, ...], data, add_name=False, course_of_the_decision=False):
         self.__what_count = what_count
-        self.__output = []
+        self.__output = {}
         self.add_name = add_name
+        self.course_of_the_decision = course_of_the_decision
         if len(data) == 0:
             raise LengthError('Не указаны данные!')
         try:
@@ -19,16 +20,19 @@ class Answers:
     def output(self):
         if 'Мода' in self.__what_count:
             try:
-                self.__output.append(Mode(self.__data, add_name=self.add_name).answer)
+                data = Mode(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
+                self.__output[data[0]] = data[1:]
             except ModeError:
-                self.__output.append('Моды нет!')
+                self.__output['Мода'] = 'Моды нет!'
         if 'Медиана' in self.__what_count:
-            self.__output.append(Median(self.__data, add_name=self.add_name).answer)
+            data = Median(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
+            self.__output[data[0]] = data[1:]
         if 'Размах' in self.__what_count:
-            self.__output.append(Scope(self.__data, add_name=self.add_name).answer)
+            data = Scope(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
+            self.__output[data[0]] = data[1:]
         if 'Среднее арифметическое' in self.__what_count:
-            self.__output.append(Avg(self.__data, add_name=self.add_name).answer)
-        print(self.__output)
+            data = Avg(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
+            self.__output[data[0]] = data[1:]
         return self.__output
 
 
@@ -60,13 +64,16 @@ class Root:
 
     def __get_and_insert_data_from_entry(self):
         data = self.entry.get()
-        self.answers.extend(Answers(self.__what_count, data, add_name=True).output())
-        self.entry.delete(0, END)
-        self.output()
+        self.answers = Answers(self.__what_count, data, add_name=True, course_of_the_decision=True).output()
+        if len(self.__what_count) == 0:
+            raise SelectError('Не выбрано ни одного варианта!')
+        else:
+            self.output()
+            self.entry.delete(0, END)
         return data
 
     def input_field(self):
-        self.entry.insert(END, '1, 2, 3, 4, 5, 6, 7')
+        self.entry.insert(END, '1, 2, 3, 4, 5, 6, 7, 7')
         self.entry.grid(row=0, column=0)
         self.entry.bind('<Return>', lambda x: self.__get_and_insert_data_from_entry())
 
@@ -75,7 +82,6 @@ class Root:
             self.__what_count.append(value)
         else:
             self.__what_count.remove(value)
-        print(self.__what_count)
 
     def check_boxes(self):
         self.checkbox1.grid(row=1, column=0)
@@ -91,9 +97,13 @@ class Root:
     def output(self):
         self.box.grid(row=8, column=0)
         for i in self.answers:
-            print(i)
             self.box.configure(state='normal')
-            self.box.insert(END, (':   '.join(map(str, list(i))) if isinstance(i, tuple) else i) + '\n')
+            if i == 'Мода':
+                if isinstance(self.answers[i], tuple) and len(self.answers[i]) == 2:
+                    if len(self.answers[i][-1]) > 1:
+                        self.box.insert(END, f'{i}: {self.answers[i][0]}{', '.join(map(str, self.answers[i][1]))}\n')
+                    else:
+                        self.box.insert(END, f'{i}: {self.answers[i][0]}{self.answers[i][1][0]}\n')
             self.box.see(END)
             self.box.configure(state='disabled')
 
