@@ -11,7 +11,7 @@ sys.path.append('.')
 class Mode(Collection):
     @lru_cache
     def make_course_of_the_decision(self) -> str:
-        output = f'{', '.join(map(str, self._lst))} = '
+        output = f'{', '.join(map(str, self._lst))} -> '
         return output
 
     @lru_cache

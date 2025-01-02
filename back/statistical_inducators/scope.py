@@ -9,10 +9,16 @@ sys.path.append('.')
 
 class Scope(Collection):
     @lru_cache
+    def make_course_of_the_decision(self):
+        output = f'{', '.join(map(str, self._lst))} -> {max(self._lst)} - {min(self._lst)}'
+        return output
+
+    @lru_cache
     def _count_the_answer(self) -> Number | None:
         if not len(self._lst) >= 2:
             raise LengthError('Длина списка должна быть больше нуля!')
-        return ('Размах', max(self._lst) - min(self._lst)) if self.add_name else max(self._lst) - min(self._lst)
+        answer = max(self._lst) - min(self._lst)
+        return self.returning('Размах', answer)
 
 
 if __name__ == '__main__':

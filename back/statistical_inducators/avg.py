@@ -9,10 +9,14 @@ sys.path.append('.')
 
 class Avg(Collection):
     @lru_cache
+    def make_course_of_the_decision(self) -> str:
+        return f'({' + '.join(map(str, self._lst))}) / {len(self._lst)} -> '
+
+    @lru_cache
     def _count_the_answer(self) -> Number | None:
         if not self._lst:
             raise LengthError('Длина списка должна быть больше нуля!')
-        return ('Среднее арифметическое', sum(self._lst) / len(self._lst)) if self.add_name else sum(self._lst) / len(self._lst)
+        return self.returning('Среднее арифметическое', sum(self._lst) / len(self._lst))
 
 
 if __name__ == '__main__':

@@ -7,9 +7,11 @@ from Errors import LengthError
 class Median(Collection):
     @lru_cache
     def make_course_of_the_decision(self):
-        output = f'{', '.join(map(str, self._lst))} = {', '.join(map(str, sorted(self._lst)))} = '
+        output = f'{', '.join(map(str, self._lst))} = {', '.join(map(str, sorted(self._lst)))}'
         if len(self._lst) % 2 == 0:
-            output += f'({self._lst[len(self._lst) // 2 - 1]} + {self._lst[len(self._lst) // 2]}) / 2'
+            output += f' -> ({self._lst[len(self._lst) // 2 - 1]} + {self._lst[len(self._lst) // 2]}) / 2'
+        else:
+            output += ' = '
         return output
 
     @lru_cache

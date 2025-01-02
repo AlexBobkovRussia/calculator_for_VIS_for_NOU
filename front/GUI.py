@@ -104,7 +104,7 @@ class Root:
                         self.box.insert(END, f'{i}: {self.answers[i][0]}{', '.join(map(str, self.answers[i][1]))}\n')
                     else:
                         self.box.insert(END, f'{i}: {self.answers[i][0]}{self.answers[i][1][0]}\n')
-            elif i == 'Медиана':
+            elif i in ['Медиана', 'Размах', 'Среднее арифметическое']:
                 if isinstance(self.answers[i], tuple) and len(self.answers[i]) == 2:
                     self.box.insert(END, f'{i}: {self.answers[i][0]} = {self.answers[i][1]}\n')
             self.box.see(END)
