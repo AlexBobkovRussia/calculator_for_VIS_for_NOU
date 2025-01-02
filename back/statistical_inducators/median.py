@@ -11,9 +11,10 @@ class Median(Collection):
             raise LengthError('Длина списка должна быть больше нуля!')
         self._lst.sort()
         if len(self._lst) % 2 != 0:
-            return self._lst[len(self._lst) // 2]
+            return ('Медиана', self._lst[len(self._lst) // 2]) if self.add_name else self._lst[len(self._lst) // 2]
         else:
-            return (self._lst[len(self._lst) // 2 - 1] + self._lst[len(self._lst) // 2]) / 2
+            return (('Медиана', (self._lst[len(self._lst) // 2 - 1] + self._lst[len(self._lst) // 2]) / 2)
+                if self.add_name else (self._lst[len(self._lst) // 2 - 1] + self._lst[len(self._lst) // 2]) / 2)
 
 
 if __name__ == '__main__':
@@ -35,4 +36,3 @@ if __name__ == '__main__':
         print('Ошибка TypeError ОТРАБОТАЛА')
     else:
         print('Ошибка TypeError НЕ ОТРАБОТАЛА')
-

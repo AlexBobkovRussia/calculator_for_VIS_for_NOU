@@ -12,7 +12,7 @@ class Avg(Collection):
     def _count_the_answer(self) -> Number | None:
         if not self._lst:
             raise LengthError('Длина списка должна быть больше нуля!')
-        return sum(self._lst) / len(self._lst)
+        return ('Среднее арифметическое', sum(self._lst) / len(self._lst)) if self.add_name else sum(self._lst) / len(self._lst)
 
 
 if __name__ == '__main__':

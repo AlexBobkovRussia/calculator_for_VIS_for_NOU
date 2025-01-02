@@ -6,10 +6,11 @@ sys.path.append('..')
 
 
 class Collection(ABC):
-    def __init__(self, lst: list[Number]):
+    def __init__(self, lst: list[Number], add_name=False):
         if not all(isinstance(i, Number) for i in lst):
             raise TypeError('Все элементы списка должны быть числами!')
         self._lst = lst
+        self.add_name = add_name
         self.answer = self._count_the_answer()
 
     def __call__(self, element: Number):

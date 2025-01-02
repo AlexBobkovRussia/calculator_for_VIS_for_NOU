@@ -12,7 +12,7 @@ class Scope(Collection):
     def _count_the_answer(self) -> Number | None:
         if not len(self._lst) >= 2:
             raise LengthError('Длина списка должна быть больше нуля!')
-        return max(self._lst) - min(self._lst)
+        return ('Размах', max(self._lst) - min(self._lst)) if self.add_name else max(self._lst) - min(self._lst)
 
 
 if __name__ == '__main__':
