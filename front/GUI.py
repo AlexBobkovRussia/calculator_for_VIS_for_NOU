@@ -19,15 +19,15 @@ class Answers:
     def output(self):
         if 'Мода' in self.__what_count:
             try:
-                self.__output.append((Mode(self.__data, add_name=self.add_name).answer))
+                self.__output.append(Mode(self.__data, add_name=self.add_name).answer)
             except ModeError:
                 self.__output.append('Моды нет!')
         if 'Медиана' in self.__what_count:
-            self.__output.append((Median(self.__data, add_name=self.add_name).answer))
+            self.__output.append(Median(self.__data, add_name=self.add_name).answer)
         if 'Размах' in self.__what_count:
-            self.__output.append((Scope(self.__data, add_name=self.add_name).answer))
+            self.__output.append(Scope(self.__data, add_name=self.add_name).answer)
         if 'Среднее арифметическое' in self.__what_count:
-            self.__output.append((Avg(self.__data, add_name=self.add_name).answer))
+            self.__output.append(Avg(self.__data, add_name=self.add_name).answer)
         print(self.__output)
         return self.__output
 
@@ -41,14 +41,22 @@ class Root:
         self._root.geometry(geometry)
         self.__what_count: list[str, ...] = []
         self.answers: list[Number, ...] = []
-        self.entry = CTkEntry(master=self._root, placeholder_text='Введите список чисел через запятую', font=('Arial', 25), width=800)
-        self.checkbox1 = CTkCheckBox(master=self._root, text='Мода', font=('Arial', 25), width=800, bg_color='#E0F2F7', command=lambda: self._what_count('Мода'))
-        self.checkbox2 = CTkCheckBox(master=self._root, text='Медиана', font=('Arial', 25), width=800, bg_color='#E0F2F7', command=lambda: self._what_count('Медиана'))
-        self.checkbox3 = CTkCheckBox(master=self._root, text='Размах', font=('Arial', 25), width=800, bg_color='#E0F2F7', command=lambda: self._what_count('Размах'))
-        self.checkbox4 = CTkCheckBox(master=self._root, text='Среднее арифметическое', font=('Arial', 25), width=800, bg_color='#E0F2F7', command=lambda: self._what_count('Среднее арифметическое'))
+        self.entry = CTkEntry(master=self._root, placeholder_text='Введите список чисел через запятую',
+                              font=('Arial', 25), width=800)
+        self.checkbox1 = CTkCheckBox(master=self._root, text='Мода', font=('Arial', 25), width=800, bg_color='#E0F2F7',
+                                     command=lambda: self._what_count('Мода'))
+        self.checkbox2 = CTkCheckBox(master=self._root, text='Медиана', font=('Arial', 25), width=800,
+                                     bg_color='#E0F2F7', command=lambda: self._what_count('Медиана'))
+        self.checkbox3 = CTkCheckBox(master=self._root, text='Размах', font=('Arial', 25), width=800,
+                                     bg_color='#E0F2F7', command=lambda: self._what_count('Размах'))
+        self.checkbox4 = CTkCheckBox(master=self._root, text='Среднее арифметическое', font=('Arial', 25), width=800,
+                                     bg_color='#E0F2F7', command=lambda: self._what_count('Среднее арифметическое'))
         self.answer = CTkLabel(master=self._root, text='Ответ:', font=('Arial', 25), width=200, bg_color='#E0F2F7')
-        self.box = CTkTextbox(master=self._root, font=('Arial', 25), width=800, height=370, bg_color='#E0F2F7', fg_color='white', wrap='none', state='disabled')
-        self.counting = CTkButton(master=self._root, text='Посчитать', font=('Arial', 25), width=200, bg_color='#E0F2F7', fg_color='darkblue', hover_color='#0089FF', command=lambda: self.__get_and_insert_data_from_entry())
+        self.box = CTkTextbox(master=self._root, font=('Arial', 25), width=800, height=370, bg_color='#E0F2F7',
+                              fg_color='white', wrap='none', state='disabled')
+        self.counting = CTkButton(master=self._root, text='Посчитать', font=('Arial', 25), width=200,
+                                  bg_color='#E0F2F7', fg_color='darkblue', hover_color='#0089FF',
+                                  command=lambda: self.__get_and_insert_data_from_entry())
 
     def __get_and_insert_data_from_entry(self):
         data = self.entry.get()
@@ -85,7 +93,7 @@ class Root:
         for i in self.answers:
             print(i)
             self.box.configure(state='normal')
-            self.box.insert(END, (':   '.join(map(str, list(i))) if isinstance(i, tuple) else i )+ '\n')
+            self.box.insert(END, (':   '.join(map(str, list(i))) if isinstance(i, tuple) else i) + '\n')
             self.box.see(END)
             self.box.configure(state='disabled')
 
