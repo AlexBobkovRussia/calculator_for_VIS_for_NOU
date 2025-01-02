@@ -70,6 +70,7 @@ class Root:
         if len(self.__what_count) == 0:
             raise SelectError('Не выбрано ни одного варианта!')
         else:
+            self.answer_name()
             self.output()
             self.entry.delete(0, END)
         return data
@@ -103,11 +104,13 @@ class Root:
                 if isinstance(self.answers[i], tuple) and len(self.answers[i]) == 2:
                     if len(self.answers[i][-1]) > 1:
                         self.box.insert(END, f'{i}: {self.answers[i][0]}{', '.join(map(str, self.answers[i][1]))}\n')
-                    else:
+                    elif len(self.answers[i][-1]) == 1:
                         self.box.insert(END, f'{i}: {self.answers[i][0]}{self.answers[i][1][0]}\n')
+                    else:
+                        self.box.insert(END, f'{i}: {self.answers[i][0]}\n')
             elif i in ['Медиана', 'Размах', 'Среднее арифметическое']:
                 if isinstance(self.answers[i], tuple) and len(self.answers[i]) == 2:
-                    self.box.insert(END, f'{i}: {self.answers[i][0]} = {self.answers[i][1]}\n')
+                    self.box.insert(END, f'{i}: {self.answers[i][0]}{self.answers[i][1]}\n')
             self.box.see(END)
             self.box.configure(state='disabled')
 
@@ -122,5 +125,4 @@ root = Root(title='Калькулятор для ВиС', resizable=[False, Fals
 root.input_field()
 root.check_boxes()
 root.count_the_answer()
-root.answer_name()
 root.mainloop()
