@@ -20,12 +20,14 @@ class Answers:
     def output(self):
         if 'Мода' in self.__what_count:
             try:
-                data = Mode(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
+                data = Mode(self.__data, add_name=self.add_name,
+                            course_of_the_decision=self.course_of_the_decision).answer
                 self.__output[data[0]] = data[1:]
             except ModeError:
                 self.__output['Мода'] = 'Моды нет!'
         if 'Медиана' in self.__what_count:
-            data = Median(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
+            data = Median(self.__data, add_name=self.add_name,
+                          course_of_the_decision=self.course_of_the_decision).answer
             self.__output[data[0]] = data[1:]
         if 'Размах' in self.__what_count:
             data = Scope(self.__data, add_name=self.add_name, course_of_the_decision=self.course_of_the_decision).answer
@@ -73,7 +75,6 @@ class Root:
         return data
 
     def input_field(self):
-        self.entry.insert(END, '1, 2, 3, 4, 5, 6, 7, 7')
         self.entry.grid(row=0, column=0)
         self.entry.bind('<Return>', lambda x: self.__get_and_insert_data_from_entry())
 
