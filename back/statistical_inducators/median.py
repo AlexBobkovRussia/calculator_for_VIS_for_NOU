@@ -10,7 +10,6 @@ class Median(Collection):
         output = f'{', '.join(map(str, self._lst))} = {', '.join(map(str, sorted(self._lst)))} = '
         if len(self._lst) % 2 == 0:
             output += f'({self._lst[len(self._lst) // 2 - 1]} + {self._lst[len(self._lst) // 2]}) / 2'
-        output += f'\n'
         return output
 
     @lru_cache
@@ -26,7 +25,6 @@ class Median(Collection):
 
 
 if __name__ == '__main__':
-    print(Median([1, 2, 3], add_name=True, course_of_the_decision=True).answer)
     assert Median([1, 2, 3]).answer == 2
     assert Median([1, 2, 3, 4]).answer == 2.5
     assert Median([1, 2, 3, 4, 5]).answer == 3
