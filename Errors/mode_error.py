@@ -3,5 +3,5 @@ import sys
 sys.path.append('.')
 
 
-class LengthError(Exception):
+class ModeError(Exception):
     pass
