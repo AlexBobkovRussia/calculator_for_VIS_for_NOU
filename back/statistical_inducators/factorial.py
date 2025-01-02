@@ -11,6 +11,9 @@ class Factorial:
         self._number = number
         self.answer = self._count_the_answer()
 
+    def __call__(self, number: Number):
+        self._number = number
+
     @lru_cache
     def _count_the_answer(self):
         if not self._number >= 0:
