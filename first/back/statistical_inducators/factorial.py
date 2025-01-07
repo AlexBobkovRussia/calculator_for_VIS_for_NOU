@@ -3,7 +3,7 @@ from functools import lru_cache
 from math import factorial
 from numbers import Number
 
-sys.path.append('.')
+sys.path.append('')
 
 
 class Factorial:

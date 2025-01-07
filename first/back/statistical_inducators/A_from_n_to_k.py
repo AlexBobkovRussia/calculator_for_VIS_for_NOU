@@ -3,7 +3,7 @@ from numbers import Number
 from math import factorial
 import sys
 
-sys.path.append('.')
+sys.path.append('')
 
 
 class AFromNToK:

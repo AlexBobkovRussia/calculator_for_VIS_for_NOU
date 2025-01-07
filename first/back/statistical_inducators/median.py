@@ -1,7 +1,7 @@
 from numbers import Number
 from functools import lru_cache
-from back.statistical_inducators.collection import Collection
-from Errors import LengthError
+from first.back.statistical_inducators.collection import Collection
+from first.Errors import LengthError
 
 
 class Median(Collection):

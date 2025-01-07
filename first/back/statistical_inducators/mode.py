@@ -1,11 +1,11 @@
 from numbers import Number
 from functools import lru_cache
-from back.statistical_inducators.collection import Collection
-from Errors import LengthError, ModeError
+from first.back.statistical_inducators.collection import Collection
+from first.Errors import LengthError, ModeError
 from collections import Counter
 import sys
 
-sys.path.append('.')
+sys.path.append('')
 
 
 class Mode(Collection):

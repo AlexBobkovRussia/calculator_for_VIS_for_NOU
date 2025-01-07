@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from numbers import Number
 import sys
 
-sys.path.append('.')
+sys.path.append('')
 
 
 class Collection(ABC):

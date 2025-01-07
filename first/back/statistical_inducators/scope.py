@@ -1,10 +1,10 @@
 from numbers import Number
 from functools import lru_cache
-from back.statistical_inducators.collection import Collection
-from Errors import LengthError
+from first.back.statistical_inducators.collection import Collection
+from first.Errors import LengthError
 import sys
 
-sys.path.append('.')
+sys.path.append('')
 
 
 class Scope(Collection):

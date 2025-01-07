@@ -1,6 +1,5 @@
 from customtkinter import *
-from back import *
-from Errors import LengthError, ModeError, SelectError
+from first.Errors import LengthError, ModeError, SelectError
 from numbers import Number
 
 
@@ -22,7 +21,7 @@ class Answers:
             try:
                 data = Mode(self.__data, add_name=self.add_name,
                             course_of_the_decision=self.course_of_the_decision).answer
-                self.__output[data[0]] = data[1:]
+                self.__output['Мода'] = data[1:]
             except ModeError:
                 self.__output['Мода'] = 'Моды нет!'
         if 'Медиана' in self.__what_count:
@@ -102,12 +101,12 @@ class Root:
             self.box.configure(state='normal')
             if i == 'Мода':
                 if isinstance(self.answers[i], tuple) and len(self.answers[i]) == 2:
-                    if len(self.answers[i][-1]) > 1:
+                    if len(self.answers[i][1]) > 1:
                         self.box.insert(END, f'{i}: {self.answers[i][0]}{', '.join(map(str, self.answers[i][1]))}\n')
-                    elif len(self.answers[i][-1]) == 1:
+                    elif len(self.answers[i][1]) == 1:
                         self.box.insert(END, f'{i}: {self.answers[i][0]}{self.answers[i][1][0]}\n')
                     else:
-                        self.box.insert(END, f'{i}: {self.answers[i][0]}\n')
+                        self.box.insert(END, f'{i}: Моды нет!\n')
             elif i in ['Медиана', 'Размах', 'Среднее арифметическое']:
                 if isinstance(self.answers[i], tuple) and len(self.answers[i]) == 2:
                     self.box.insert(END, f'{i}: {self.answers[i][0]}{self.answers[i][1]}\n')

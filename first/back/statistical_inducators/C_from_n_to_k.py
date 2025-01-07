@@ -1,9 +1,9 @@
 from math import factorial
-from back.statistical_inducators.A_from_n_to_k import AFromNToK
+from first.back.statistical_inducators.A_from_n_to_k import AFromNToK
 from functools import lru_cache
 import sys
 
-sys.path.append('.')
+sys.path.append('')
 
 
 class CFromNToK(AFromNToK):
