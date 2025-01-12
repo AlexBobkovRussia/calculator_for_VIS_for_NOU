@@ -1,2 +1,0 @@
-class SelectError(Exception):
-    pass

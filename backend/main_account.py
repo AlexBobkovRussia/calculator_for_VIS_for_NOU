@@ -1,15 +1,15 @@
 from collections import Counter
-from functools import lru_cache
-from numbers import Number
 from prettytable import PrettyTable
+from .main_storage import Storage
 
-from pattern import Pattern
 
+class MainAccount:
+    def __init__(self, storage: Storage):
+        self._lst = storage.lst
+        output = self.output()
 
-class Mode(Pattern):
-    def __init__(self, lst: list[Number]):
-        self._lst = lst
-        super().__init__()
+    def _sorted_list(self):
+        return sorted(self._lst)
 
     def _make_table(self):
         counter = Counter(self._lst)
@@ -32,24 +32,9 @@ class Mode(Pattern):
             td_data = td_data[columns:]
         return table
 
-    @lru_cache(None)
-    def _make_step_by_step_response(self):
-        output = f'{', '.join(map(str, self._lst))} = {', '.join(sorted(map(str, self._lst)))}\n'
-        return output, self._make_table()
-
-    @lru_cache(None)
-    def _count(self):
-        counter = Counter(self._lst)
-        max_value = max(counter.values())
-        if all(max_value == i for i in counter.values()):
-            return []
-        counter = {key: value for key, value in counter.items() if value == max_value}
-        return list(counter.keys())
+    def output(self):
+        return f"Список чисел: {', '.join(map(str, self._lst))}\nОтсортированный список: {', '.join(map(str, self._sorted_list()))}\nТаблица частот: \n{self._make_table()}\n"
 
 
 if __name__ == '__main__':
-    # assert Mode([1, 2, 3, 4, 5]).answer == []
-    # assert Mode([1, 2, 2, 3, 4]).answer == [2]
-    # assert Mode([1, 2, 2, 3, 3, 4]).answer == [2, 3]
-    # assert Mode([1, 2, 2, 3, 3, 3]).answer == [3]
-    print(*Mode([*([1] * 11), 111, 11, 222, 22, 333, 33, 444, 44, 555, *([55] * 111)]).step_by_step_answer, sep='\n')
+    print(MainAccount(Storage([5, 1, 2, 3, 4, 5])).output())
