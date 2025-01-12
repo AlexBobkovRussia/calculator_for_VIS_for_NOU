@@ -13,3 +13,7 @@ class Pattern(ABC):
     @abstractmethod
     def _make_step_by_step_response(self):
         pass
+
+    @abstractmethod
+    def _make_table(self):
+        pass
