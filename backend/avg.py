@@ -19,7 +19,7 @@ class Avg(Pattern):
         # first_line += ' + '.join(map(str, self._lst))
         # second_line += '-' * (len(self._lst) + 3 * (len(self._lst) - 1)) + ' = ' + str(self._count())
         # third_line += ' ' * (len(first_line) // 2) + str(len(self._lst))
-        return f'({" + ".join(map(str, self._lst))}) / {len(self._lst)}'
+        return f'({" + ".join(map(str, self._lst))}) / {len(self._lst)} = {self._count()}'
 
 
 if __name__ == '__main__':

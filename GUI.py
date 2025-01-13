@@ -17,22 +17,23 @@ class Root:
         self._median_count = False
         self._avg_count = False
         self._scope_count = False
+        self._main_account = True
         self.box = CTkTextbox(master=self._root, font=('Arial', 20), width=800, height=420, fg_color='#49B8DA',
-                              wrap='none', state='disabled')
+                              bg_color='#58D0F5', wrap='none', state='disabled')
         self.moda = CTkButton(master=self._root, text='Мода', font=('Arial', 25), height=50, command=self.mode,
-                              state='disabled')
+                              bg_color='#58D0F5', state='disabled')
         self.median = CTkButton(master=self._root, text='Медиана', font=('Arial', 20), height=50, command=self.median,
-                                state='disabled')
+                                bg_color='#58D0F5', state='disabled')
         self.avg = CTkButton(master=self._root, text='Среднее арифметическое', font=('Arial', 20), height=50,
-                             command=self.avg, state='disabled')
+                             bg_color='#58D0F5', command=self.avg, state='disabled')
         self.scope = CTkButton(master=self._root, text='Размах', font=('Arial', 20), height=50, command=self.scope,
-                               state='disabled')
+                               bg_color='#58D0F5', state='disabled')
         self.entry = CTkEntry(master=self._root, placeholder_text='Введите числа через запятую', font=('Arial', 20),
-                              width=800, height=50)
+                              bg_color='#58D0F5', width=800, height=50)
         self.count = CTkButton(master=self._root, text='Сделать базовый расчет', font=('Arial', 20), height=50,
-                               command=self.count_pressed, fg_color='#7300F6')
+                               bg_color='#58D0F5', command=self.count_pressed, fg_color='#7300F6')
         self.cleaner = CTkButton(master=self._root, text='Очистить все', font=('Arial', 20), height=50,
-                                 command=self.clean, fg_color='#7300F6')
+                                 bg_color='#58D0F5', command=self.clean, fg_color='#7300F6')
 
     def clean(self):
         self._main_storage = Storage(None)
@@ -40,6 +41,7 @@ class Root:
         self._median_count = False
         self._avg_count = False
         self._scope_count = False
+        self._main_account = True
         self.moda.configure(state='disabled')
         self.median.configure(state='disabled')
         self.avg.configure(state='disabled')
@@ -50,6 +52,8 @@ class Root:
         self.box.configure(state='disabled')
 
     def count_pressed(self):
+        if not self._main_account:
+            return None
         try:
             self._main_storage(self.input_data())
             data = self._main_storage
@@ -60,6 +64,7 @@ class Root:
             self.median.configure(state='normal')
             self.avg.configure(state='normal')
             self.scope.configure(state='normal')
+            self._main_account = False
         except ValueError:
             messagebox.showerror("Ошибка", "Проверьте правильность ввода чисел")
 
@@ -101,10 +106,10 @@ class Root:
     def input_data(self):
         data = self.entry.get().split(', ')
         try:
-            data = list(map(int, data))
+            data = list(map(float, data))
         except ValueError:
             raise ValueError
-        return list(map(int, data))
+        return list(map(float, data))
 
     def buttons(self):
         self.moda.grid(row=0, column=0, sticky='we', padx=(1, 1))
